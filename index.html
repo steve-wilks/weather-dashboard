@@ -7,18 +7,18 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
       font-family: "Segoe UI", Roboto, sans-serif;
       background: linear-gradient(to bottom, #e0f7fa, #ffffff);
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      text-align: center;
+      min-height: 100vh;
     }
 
     .container {
-      max-width: 600px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 40px;
       padding: 20px;
       background: white;
       border-radius: 12px;
@@ -26,21 +26,97 @@
     }
 
     h1 {
-      margin-bottom: 0.5em;
-      font-size: 2em;
+      text-align: center;
       color: #0077b6;
+      margin-bottom: 1em;
     }
 
-    p {
-      font-size: 1.2em;
-      color: #333;
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1em;
+    }
+
+    .tab-button {
+      background: #eee;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s ease;
+    }
+
+    .tab-button.active {
+      background: #0077b6;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .tab-button {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Weather Dashboard</h1>
-    <p>This is a placeholder for your cross-country soaring dashboard.</p>
+
+    <div class="tabs">
+      <button class="tab-button active" onclick="showTab('overview')">Overview</button>
+      <button class="tab-button" onclick="showTab('skysight')">Skysight</button>
+      <button class="tab-button" onclick="showTab('rasp')">RASP</button>
+      <button class="tab-button" onclick="showTab('rain')">Rain Radar</button>
+      <button class="tab-button" onclick="showTab('skydemon')">SkyDemon</button>
+      <button class="tab-button" onclick="showTab('tasks')">Task Planner</button>
+    </div>
+
+    <div id="overview" class="tab-content active">
+      <p>This is a placeholder for general conditions, notes, or local flying advice.</p>
+    </div>
+
+    <div id="skysight" class="tab-content">
+      <p>Skysight charts or embedded maps will go here.</p>
+    </div>
+
+    <div id="rasp" class="tab-content">
+      <p>RASP forecast (e.g. star rating, overlays, or embedded charts).</p>
+    </div>
+
+    <div id="rain" class="tab-content">
+      <p>Rain radar animation or live cloud cover imagery placeholder.</p>
+    </div>
+
+    <div id="skydemon" class="tab-content">
+      <p>SkyDemon route planner or chart snapshot area.</p>
+    </div>
+
+    <div id="tasks" class="tab-content">
+      <p>Smart task recommendations will appear here based on conditions, NOTAMs, and airspace.</p>
+    </div>
   </div>
+
+  <script>
+    function showTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+      contents.forEach(c => c.classList.remove('active'));
+      buttons.forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
 </body>
 </html>
