@@ -67,6 +67,12 @@
       color: #0077b6;
       text-decoration: none;
     }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -109,10 +115,13 @@
 
     <div id="f214" class="tab-content">
       <h2>F214 / F215 Charts</h2>
-      <p>You need to log in to the Met Office to view the charts. Use the following link:</p>
+      <p>You need to log in to the Met Office to view the charts. Use the embedded view below, or open in a new tab if access fails.</p>
       <div class="external-links">
-        <a href="https://www.metoffice.gov.uk/premium/generalaviation/" target="_blank">Go to Met Office Aviation Briefing</a>
+        <a href="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?chartType=F214" target="_blank">Open F214 in new tab</a>
+        <a href="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?chartType=F215" target="_blank">Open F215 in new tab</a>
       </div>
+      <iframe src="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?chartType=F214" loading="lazy"></iframe>
+      <iframe src="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?chartType=F215" loading="lazy"></iframe>
       <button class="tab-button" onclick="toggleCredentials()">Show MetOffice Credentials</button>
       <div id="credentials" style="display:none; margin-top:10px;">
         <p><strong>Username:</strong> your email<br><strong>Password:</strong> L0dd!ngt0n</p>
@@ -143,7 +152,3 @@
   </script>
 </body>
 </html>
-
-
-
-
