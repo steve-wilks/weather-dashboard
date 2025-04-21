@@ -113,14 +113,19 @@
             <p><strong>Note:</strong> These charts update regularly. If they appear outdated, refresh this tab or open the links in a new window to ensure you see the latest version.</p>
     </div>
 
-    <div id="consolidated" class="tab-content">
-      <h2>Consolidated Probability Forecast</h2>
-      <p>This section will display the most likely soaring forecast based on multiple models.</p>
+    <div id="f214" class="tab-content">
+      <h2>F214 / F215 Charts</h2>
+      <p>You need to log in to the Met Office to view the charts. Use the following link:</p>
+      <div class="external-links">
+        <a href="https://www.metoffice.gov.uk/premium/generalaviation/" target="_blank">Go to Met Office Aviation Briefing</a>
+      </div>
+      <button class="tab-button" onclick="toggleCredentials()">Show MetOffice Credentials</button>
+      <div id="credentials" style="display:none; margin-top:10px;">
+        <p><strong>Username:</strong> your email<br><strong>Password:</strong> L0dd!ngt0n</p>
+      </div>
+      <p><strong>Note:</strong> These charts update regularly. If they appear outdated, refresh this tab or open the links in a new window to ensure you see the latest version.</p>
     </div>
-  </div>
-
-  <script>
-    function showTab(tabId) {
+    
       const contents = document.querySelectorAll('.tab-content');
       const buttons = document.querySelectorAll('.tab-button');
       contents.forEach(c => c.classList.remove('active'));
