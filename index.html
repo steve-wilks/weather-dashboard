@@ -73,6 +73,7 @@
 <body>
   <div class="container">
     <h1>Weather Dashboard</h1>
+
     <div class="tabs">
       <button class="tab-button active" onclick="showTab('overview')">Overview</button>
       <button class="tab-button" onclick="showTab('skysight')">Skysight</button>
@@ -115,11 +116,22 @@
 
     <div id="f214" class="tab-content">
       <h2>F214 / F215 Charts</h2>
-      <p>You can view the latest Met Office forecast charts below. You may need to log in to access them:</p>
-      <ul>
-        <li><a href="https://www.metoffice.gov.uk/weather/maps-and-charts/upper-air-pressure-charts#?tab=f214" target="_blank">Open F214 Chart (Upper Air Forecast)</a></li>
-        <li><a href="https://www.metoffice.gov.uk/weather/maps-and-charts/upper-air-pressure-charts#?tab=f215" target="_blank">Open F215 Chart (Soaring Forecast)</a></li>
-      </ul>
+      <p>
+        These charts are only available through the Met Office Premium portal. You must be logged in to view them.
+      </p>
+      <p><strong>Login link:</strong><br>
+        <a href="https://www.metoffice.gov.uk/premium/login" target="_blank">https://www.metoffice.gov.uk/premium/login</a>
+      </p>
+      <p><strong>Username:</strong> your email<br>
+         <strong>Password:</strong> L0dd!ngt0n
+      </p>
+      <p>Once logged in, open the charts using the links below:</p>
+      <a href="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?imageID=222673916&chartType=F214" target="_blank">
+        <button class="tab-button">Open F214 Chart</button>
+      </a>
+      <a href="https://www.metoffice.gov.uk/premium/generalaviation/#!/briefingChartView?imageID=222671224&pdfID=222671223&chartType=F215" target="_blank">
+        <button class="tab-button">Open F215 Chart</button>
+      </a>
     </div>
   </div>
 
@@ -127,14 +139,13 @@
     function showTab(tabId) {
       const contents = document.querySelectorAll('.tab-content');
       const buttons = document.querySelectorAll('.tab-button');
-
       contents.forEach(c => c.classList.remove('active'));
       buttons.forEach(b => b.classList.remove('active'));
-
       document.getElementById(tabId).classList.add('active');
       event.target.classList.add('active');
     }
   </script>
 </body>
 </html>
+
 
