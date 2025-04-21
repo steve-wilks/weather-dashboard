@@ -73,7 +73,6 @@
 <body>
   <div class="container">
     <h1>Weather Dashboard</h1>
-
     <div class="tabs">
       <button class="tab-button active" onclick="showTab('overview')">Overview</button>
       <button class="tab-button" onclick="showTab('skysight')">Skysight</button>
@@ -81,11 +80,8 @@
       <button class="tab-button" onclick="showTab('rain')">Rain Radar</button>
       <button class="tab-button" onclick="showTab('skydemon')">SkyDemon</button>
       <button class="tab-button" onclick="showTab('tasks')">Task Planner</button>
-  
       <button class="tab-button" onclick="showTab('consolidated')">Consolidated Forecast</button>
-<button class="tab-button" onclick="showTab('f214')">F214 / F215</button>
-
-    
+      <button class="tab-button" onclick="showTab('f214')">F214 / F215</button>
     </div>
 
     <div id="overview" class="tab-content active">
@@ -111,27 +107,28 @@
     <div id="tasks" class="tab-content">
       <p>Smart task recommendations will appear here based on conditions, NOTAMs, and airspace.</p>
     </div>
-  </div>
 
-  <div id="consolidated" class="tab-content" style="display: none;">
-    <h2>Consolidated Probability Forecast</h2>
-    <p>This section will display the most likely soaring forecast based on multiple models.</p>
-  </div>
-  
-  <div id="f214" class="tab-content" style="display: none;">
-    <h2>F214 / F215 Charts</h2>
-    <p>Latest Met Office upper air and soaring forecast charts:</p>
-<img src="https://www.metoffice.gov.uk/public/data/CoreProductCache/MediaType/image/png/ForecastChart-F214.png" alt="F214 Chart" style="max-width: 100%; margin-bottom: 20px;" />
-<img src="https://www.metoffice.gov.uk/public/data/CoreProductCache/MediaType/image/png/ForecastChart-F215.png" alt="F215 Chart" style="max-width: 100%;" />
+    <div id="consolidated" class="tab-content">
+      <h2>Consolidated Probability Forecast</h2>
+      <p>This section will display the most likely soaring forecast based on multiple models.</p>
+    </div>
 
+    <div id="f214" class="tab-content">
+      <h2>F214 / F215 Charts</h2>
+      <p>Latest Met Office upper air and soaring forecast charts:</p>
+      <img src="https://www.metoffice.gov.uk/public/data/CoreProductCache/MediaType/image/png/ForecastChart-F214.png" alt="F214 Chart" style="width:100%; max-width:800px;" />
+      <img src="https://www.metoffice.gov.uk/public/data/CoreProductCache/MediaType/image/png/ForecastChart-F215.png" alt="F215 Chart" style="width:100%; max-width:800px; margin-top:1em;" />
+    </div>
   </div>
 
   <script>
     function showTab(tabId) {
       const contents = document.querySelectorAll('.tab-content');
       const buttons = document.querySelectorAll('.tab-button');
+
       contents.forEach(c => c.classList.remove('active'));
       buttons.forEach(b => b.classList.remove('active'));
+
       document.getElementById(tabId).classList.add('active');
       event.target.classList.add('active');
     }
