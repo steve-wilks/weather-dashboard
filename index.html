@@ -107,17 +107,10 @@
       <p>Smart task recommendations will appear here based on conditions, NOTAMs, and airspace.</p>
     </div>
 
-    <div id="f214" class="tab-content">
-      <h2>F214 / F215 Charts</h2>
-      <p>
-        You need to log in to the Met Office to view the charts. Use the following links:
-      </p>
-      <div class="external-links">
-        <a href="https://www.metoffice.gov.uk/premium/generalaviation/" target="_blank">
-          Go to Met Office Aviation Briefing
-        </a>
+    $1      <button class="tab-button" onclick="toggleCredentials()">Show MetOffice Credentials</button>
+      <div id="credentials" style="display:none; margin-top:10px;"><p><strong>Username:</strong> your email<br><strong>Password:</strong> L0dd!ngt0n</p></div>
       </div>
-      <p><em>Username: your email / Password: L0dd!ngt0n</em></p>
+            <p><strong>Note:</strong> These charts update regularly. If they appear outdated, refresh this tab or open the links in a new window to ensure you see the latest version.</p>
     </div>
 
     <div id="consolidated" class="tab-content">
@@ -135,8 +128,13 @@
       document.getElementById(tabId).classList.add('active');
       event.target.classList.add('active');
     }
+      function toggleCredentials() {
+      const credentials = document.getElementById('credentials');
+      credentials.style.display = credentials.style.display === 'none' ? 'block' : 'none';
+    }
   </script>
 </body>
 </html>
+
 
 
