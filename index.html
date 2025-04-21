@@ -129,16 +129,16 @@
       <p><strong>Note:</strong> These charts update regularly. If they appear outdated, refresh this tab or open the links in a new window to ensure you see the latest version.</p>
     </div>
 
-    $1
-  <label for="forecast-day">Select forecast day:</label>
-  <select id="forecast-day" onchange="fetchForecast()">
-    <option value="1">Today</option>
-    <option value="2">Tomorrow</option>
-  </select>
-  <h2>Consolidated Probability Forecast</h2>
-  <p>This section will display the most likely soaring forecast based on multiple models.</p>
-  <div id="forecast-data">Loading forecast...</div>
-</div>
+    <div id="consolidated" class="tab-content">
+      <label for="forecast-day">Select forecast day:</label>
+      <select id="forecast-day" onchange="fetchForecast()">
+        <option value="1">Today</option>
+        <option value="2">Tomorrow</option>
+      </select>
+      <h2>Consolidated Probability Forecast</h2>
+      <p>This section will display the most likely soaring forecast based on multiple models.</p>
+      <div id="forecast-data">Loading forecast...</div>
+    </div>
   </div>
 
   <script>
@@ -149,13 +149,17 @@
       buttons.forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).classList.add('active');
       event.target.classList.add('active');
+
+      // Trigger fetch if consolidated tab
+      if (tabId === "consolidated") fetchForecast();
     }
 
     function toggleCredentials() {
       const credentials = document.getElementById('credentials');
       credentials.style.display = credentials.style.display === 'none' ? 'block' : 'none';
     }
-      async function fetchForecast() {
+
+    async function fetchForecast() {
       const day = document.getElementById("forecast-day")?.value || 1;
       const response = await fetch(`https://api.open-meteo.com/v1/gfs?latitude=52.451&longitude=-1.025&hourly=cloud_base,temperature_2m,dewpoint_2m,windspeed_850hPa,windspeed_700hPa,winddirection_850hPa,winddirection_700hPa,updraft_velocity,cloud_cover,high_cloud_cover&forecast_days=${day}&timezone=auto`);
       const data = await response.json();
@@ -171,12 +175,7 @@
       const updraft = data.hourly.updraft_velocity;
 
       let output = '<table style="width:100%; border-collapse: collapse; margin-top: 1em;">';
-      output += '<tr><th title="Forecast time in local timezone" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Time</th>' +
-                '<th title="Expected thermal top or cumulus base in metres" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Cloudbase (m)</th>' +
-                '<th title="Wind speed around 1500m altitude" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Wind 850hPa (km/h)</th>' +
-                '<th title="Wind speed around 3000m altitude" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Wind 700hPa (km/h)</th>' +
-                '<th title="Thermal vertical velocity (m/s)" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Updraft (m/s)</th>' +
-                '<th title="Difference in wind direction between 850hPa and 700hPa" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Wind Shear (°)</th><th title="Temperature minus dewpoint at surface – higher = drier, better for thermals" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Dewpoint Spread (°C)</th><th title="Estimated total sky cover percentage" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Total Cloud (%)</th><th title="High-level cloud coverage (e.g. cirrus) that may reduce surface heating" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">High Cloud (%)</th><th title="Summary forecast for soaring conditions" style="border-bottom: 1px solid #ccc; text-align: left; padding: 6px;">Soaring?</th></tr>';
+      output += '<tr><th>Time</th><th>Cloudbase (m)</th><th>Wind 850hPa</th><th>Wind 700hPa</th><th>Updraft (m/s)</th><th>Wind Shear (°)</th><th>Dewpoint Spread</th><th>Total Cloud (%)</th><th>High Cloud (%)</th><th>Soaring?</th></tr>';
 
       for (let i = 0; i < hours.length; i += 3) {
         const cb = cloudBase[i];
@@ -201,22 +200,13 @@
           rating = 'Unlikely';
         }
 
-        output += `<tr><td style='padding: 6px;'>${hours[i].slice(11, 16)}</td>` +
-                  `<td style='padding: 6px;'>${cb ?? '—'}</td>` +
-                  `<td style='padding: 6px;'>${w850 ?? '—'}</td>` +
-                  `<td style='padding: 6px;'>${w700 ?? '—'}</td>` +
-                  `<td style='padding: 6px;'>${up ?? '—'}</td><td style='padding: 6px;'>${shear ?? '—'}</td><td style='padding: 6px;'>${spread ?? '—'}</td><td style='padding: 6px;'>${totalCloud ?? '—'}</td><td style='padding: 6px;'>${highCloudPct ?? '—'}</td>` +
-                  `<td style='padding: 6px; font-weight: bold; color: ${rating === 'Likely' ? 'green' : rating === 'Marginal' ? 'orange' : rating === 'Unlikely' ? 'red' : 'gray'};'>${rating}</td></tr>`;
+        output += `<tr><td>${hours[i].slice(11, 16)}</td><td>${cb ?? '—'}</td><td>${w850 ?? '—'}</td><td>${w700 ?? '—'}</td><td>${up ?? '—'}</td><td>${shear ?? '—'}</td><td>${spread ?? '—'}</td><td>${totalCloud ?? '—'}</td><td>${highCloudPct ?? '—'}</td><td style="font-weight:bold; color:${rating==='Likely'?'green':rating==='Marginal'?'orange':rating==='Unlikely'?'red':'gray'};">${rating}</td></tr>`;
       }
       output += '</table>';
       document.getElementById("forecast-data").innerHTML = output;
     }
-    }
-
-    if (document.getElementById("consolidated").classList.contains("active")) {
-      fetchForecast();
-    }
-</script>
+  </script>
 </body>
 </html>
+
 
